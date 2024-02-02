@@ -10,6 +10,7 @@ import * as path from "path";
 import { Transform } from "stream";
 import WebSocket, { WebSocketServer } from "ws";
 import { IncomingMessage } from "http";
+import getPort from "get-port";
 
 const extensionPath = path.join(__dirname, "..", "extension");
 const extensionId = "jjndjgheafjngoipoacpjgeicjeomjli";
@@ -20,7 +21,7 @@ type StreamLaunchOptions = LaunchOptions &
 		allowIncognito?: boolean;
 	};
 
-export const wss = new WebSocketServer({ port: 55200 });
+let wss: null | WebSocketServer = null;
 
 export async function launch(
 	arg1: StreamLaunchOptions | { launch?: Function; [key: string]: any },
@@ -84,6 +85,8 @@ export async function launch(
 		});
 		await settings.close();
 	}
+
+	wss = new WebSocketServer({ port: await getPort({ port: 55200 }) });
 
 	return browser;
 }

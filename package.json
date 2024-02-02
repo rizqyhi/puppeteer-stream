@@ -21,6 +21,7 @@
 	},
 	"license": "MIT",
 	"dependencies": {
+		"get-port": "^7.0.0",
 		"puppeteer-core": "^20.7.2",
 		"ws": "^8.13.0"
 	},
