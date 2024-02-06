@@ -26,10 +26,11 @@ async function START_RECORDING({
 			mimeType,
 			videoConstraints,
 			audioConstraints,
+			websocketPort,
 		})
 	);
 
-	const client = new WebSocket("ws://localhost:55200/?index=" + index, []);
+	const client = new WebSocket(`ws://localhost:${websocketPort}/?index=${index}`, []);
 
 	await new Promise((resolve) => {
 		if (client.readyState === WebSocket.OPEN) resolve();

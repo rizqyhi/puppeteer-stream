@@ -21,7 +21,8 @@ type StreamLaunchOptions = LaunchOptions &
 		allowIncognito?: boolean;
 	};
 
-let wss: null | WebSocketServer = null;
+let websocketPort: number;
+let wss: WebSocketServer;
 
 export async function launch(
 	arg1: StreamLaunchOptions | { launch?: Function; [key: string]: any },
@@ -86,7 +87,8 @@ export async function launch(
 		await settings.close();
 	}
 
-	wss = new WebSocketServer({ port: await getPort({ port: 55200 }) });
+	websocketPort = await getPort({ port: 55200 });
+	wss = new WebSocketServer({ port: websocketPort });
 
 	return browser;
 }
@@ -209,7 +211,7 @@ export async function getStream(page: Page, opts: getStreamOptions) {
 	await extension.evaluate(
 		// @ts-ignore
 		(settings) => START_RECORDING(settings),
-		{ ...opts, index }
+		{ ...opts, index, websocketPort }
 	);
 
 	return stream;
