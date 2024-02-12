@@ -176,7 +176,7 @@ export async function getStream(page: Page, opts: getStreamOptions) {
 	});
 
 	function onConnection(ws: WebSocket, req: IncomingMessage) {
-		const url = new URL(`http://localhost:55200${req.url}`);
+		const url = new URL(`http://localhost:${websocketPort}${req.url}`);
 		if (url.searchParams.get("index") != index.toString()) return;
 
 		function close() {

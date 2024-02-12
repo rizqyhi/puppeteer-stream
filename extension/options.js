@@ -12,6 +12,7 @@ async function START_RECORDING({
 	videoConstraints,
 	delay,
 	audioConstraints,
+	websocketPort,
 }) {
 	console.log(
 		"[PUPPETEER_STREAM] START_RECORDING",
